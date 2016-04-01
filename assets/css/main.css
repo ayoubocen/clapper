@@ -3150,3 +3150,27 @@
 			}
 
 	}
+.bouton {
+    text-decoration: none;
+    padding: 5px;
+    background-color: darkcyan;
+    color: white;
+    border:none !important;
+}
+
+.img-materiel {
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px
+}
+
+.nom-materiel {
+    display:inline-block;
+    width: 400px;
+}
+
+.list-materiel {
+    list-style: circle;
+    margin-left: 30px;
+}
