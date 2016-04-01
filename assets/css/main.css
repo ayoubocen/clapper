@@ -3174,3 +3174,8 @@
     list-style: circle;
     margin-left: 30px;
 }
+
+#banner {
+    height: inherit;
+    padding: 20px;
+}
