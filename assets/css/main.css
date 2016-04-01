@@ -3179,3 +3179,7 @@
     height: inherit;
     padding: 20px;
 }
+
+.duree {
+    font-size: 12px;
+}
