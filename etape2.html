@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Guide de fabrication d'un Clapper</title>
+		<title>Guide de fabrication d'un Clapper - Étape 2</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -26,8 +26,8 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="index.html">Page d'accueil</a></li>
-								<li><a href="materiel.html">Matériel</a></li>
+								<li><a href="index.html">Accueil</a></li>
+								<li><a href="materiel.html">Composants</a></li>
 								<li class="current"><a href="etape1.html">Montage</a></li>
 								<li><a href="code.html">Code</a></li>
 
@@ -56,16 +56,24 @@
 								<div id="content">
 
 									<!-- Content -->
+                                    <article>
+                                        <header>
+                                            <h2>Etape 2 : Programmation</h2>
+                                            <p>Durée de l'étape : 20 minutes</p>
+                                        </header>
+                                        <p>Now that all wires are connected and the soldering iron should cool down, we come to the programming. We have already made a few basic ideas initially. The program should therefore perform the following tasks: Reading sensor to determine if there is any clapping. Mark and save claps and when clapping was twice, switch on or off the light. In order to visualize the whole, I created a small program flow chart for this, which you can see on the left side.</p>
 
-										<article>
-											<header>
-												<h2>Etape 2 : Programmation</h2>
-                                                <p>Durée de l'étape : 20 minutes</p>
-											</header>
+                                        <p>There is one little tweak as to the rest really simple sequence. If the sound sensor detects a noise that is louder than a preset level, then it writes a 0. So if I scream 1 second at a stretch, the sensor also triggers at least twice so that the light would come on. How can we distinguish between someone has clapped twice (=two single peaks) and our vacuuming neighbour?</p>
 
+                                        <p>To clarify this issue, let us have a look at what a microphone records when we clap. For this I have made two records with the freeware Audacity, while I clapped twice each. One time faster, one time more slowly clapping. I have done this, because in practice we clap not always exactly the same pace.</p>
 
-										</article>
+                                        <p>Now, the recordings can be considered in Audacity in more detail. On the basis of the level diagram, we can see how long a “clap” takes and how much time passes, until you clapped twice. (Also adjacent figure serves to illustrate.)</p>
 
+                                        <p>We can see that the fast twice clapping takes about 170 ms and the slow clapping takes 340 ms. Now let us add some tolerance, so that we can say that our “double-clap” is dealt within 400 ms. Now we take this as sequence length for the above program flow chart. So we count all peaks (volume level peaks / trips) for 400 ms and then see if exactly two peaks were found. If our neighbour was going to vacuum, then the number of peaks would be much higher during the captured 400 ms sequence. Thus we can distinguish whether someone clapped (or knocked/whistled/screamed) twice or if any other noise source has tripped </p>
+
+                                        <a href="etape1.html"><- Étape précédente</a>
+
+                                    </article>
 								</div>
 							</div>
 						</div>

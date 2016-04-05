@@ -3204,3 +3204,40 @@
 }
 
 
+
+.branchements {
+    width: 300px;
+    display: inline-table;
+    font-weight: bold;
+}
+
+thead {
+    background-color: #37c0fb;
+    color: white;
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+}
+
+tbody td:first-of-type {
+    border-right: 1px solid #37c0fb;
+}
+
+img {
+    max-width: 100%;
+}
+
+.wire-red {
+    color: #cc0000;
+}
+
+.wire-yellow {
+    color: #f1c232;
+}
+
+.wire-green {
+    color: #6aa84f;
+}
