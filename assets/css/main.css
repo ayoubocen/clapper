@@ -3150,24 +3150,37 @@
 			}
 
 	}
+
+
+.composants {
+    display: table;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.composant {
+    display: table-row;
+}
+
+.img-composant, .nom-composant, .acheter-composant {
+    display:table-cell;
+    vertical-align:middle;
+}
 .bouton {
+    display:block;
     text-decoration: none;
     padding: 5px;
     background-color: darkcyan;
     color: white;
     border:none !important;
+    text-align: center;
 }
 
-.img-materiel {
+.img-composant {
     width: 100px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 30px
+    margin-right: 20px;
 }
-
-.nom-materiel {
-    display:inline-block;
-    width: 400px;
+.acheter-composant {
+    width: 120px;
 }
 
 .list-materiel {
@@ -3183,3 +3196,11 @@
 .duree {
     font-size: 12px;
 }
+
+.syntaxhighlighter.java {
+    font-size: 15px !important;
+    border: 2px solid lightgray;
+    padding: 20px 0px;
+}
+
+

@@ -28,26 +28,66 @@
 							<ul>
 								<li><a href="index.html">Page d'accueil</a></li>
 								<li><a href="materiel.html">Matériel</a></li>
-								<li><a href="montage.html">Montage</a></li>
+								<li><a href="etape1.html">Montage</a></li>
 								<li class="current"><a href="code.html">Code</a></li>
 								
 							</ul>
 						</nav>
 
 				</div>
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+                           <header>
+                                <h2>Code source</h2>
+                                <p>Le code source nécessaire à la mise en place du Clapper</p>
+                            </header>
+                            <pre class="brush: java">
+                                int soundSensor = 3;
+                                int relay = 4;
+                                int claps = 0;
+                                long detectionSpanInitial = 0;
+                                long detectionSpan = 0;
+                                boolean lightState = false;
 
-			<!-- Banner -->
-				<section id="banner">
-					
-				</section>
+                                void setup() {
+                                    pinMode(soundSensor, INPUT);
+                                    pinMode(relay, OUTPUT);
+                                }
 
-			<!-- Highlights -->
-				
-			<!-- Footer -->
-				<div id="footer">
+                                void loop() {
 
+                                    int sensorState = digitalRead(soundSensor);
 
-				</div>
+                                    if (sensorState == 0) {
+                                        if (claps == 0) {
+                                            detectionSpanInitial = detectionSpan = millis();
+                                            claps++;
+                                        } else if (claps > 0 && millis()-detectionSpan >= 50) {
+                                            detectionSpan = millis();
+                                            claps++;
+                                        }
+                                    }
+
+                                    if (millis()-detectionSpanInitial >= 400) {
+                                        if (claps == 2) {
+                                            if (!lightState) {
+                                                lightState = true;
+                                                digitalWrite(relay, HIGH);
+                                            } else if (lightState) {
+                                                lightState = false;
+                                                digitalWrite(relay, LOW);
+                                            }
+                                        }
+                                        claps = 0;
+                                    }
+                                }
+
+                                </pre>
+                        </div>
+                    </div>
+            </section>
+
 
 		</div>
 
@@ -58,6 +98,19 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+
+			<!-- Include Syntax Highlighter JS files -->
+            <script type="text/javascript" src="assets/js/shCore.js"></script>
+            <script type="text/javascript" src="assets/js/shBrushJava.js"></script>
+            <!-- Include *at least* the core style and default theme -->
+            <link href="assets/css/shCore.css" rel="stylesheet" type="text/css" />
+            <link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
 
 	</body>
 </html>
