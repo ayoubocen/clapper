@@ -1,6 +1,6 @@
 # Guide de fabrication d’un Clapper
 
-Ce guide de fabrication présentera sous forme de site web la marche à suivre afin de fabriquer un Clapper avec un Arduino.
+Ce guide de fabrication présentera sous forme de site web la marche à suivre afin de fabriquer un Clapper grâce un Arduino.
 
 Un Clapper est un système permettant d’allumer/éteindre la lumière en claquant deux fois dans ses mains.
 
