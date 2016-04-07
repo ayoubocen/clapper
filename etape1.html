@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Guide de fabrication d'un Clapper - Étape 2</title>
+		<title>Guide de fabrication d'un Clapper - Étape 1</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -18,73 +18,114 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
-            <div id="header">
+				<div id="header">
 
-                <!-- Logo -->
-                <h1><a href="index.html" id="logo">Guide de fabrication d'un Clapper</a></h1>
+					<!-- Logo -->
+						<h1><a href="index.html" id="logo">Guide de fabrication d'un Clapper</a></h1>
 
-                <!-- Nav -->
-                <nav id="nav">
-                    <ul>
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="materiel.html">Composants</a></li>
-                        <li class="current"><a href="etape1.html">Montage</a></li>
-                        <li><a href="code.html">Code</a></li>
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Accueil</a></li>
+								<li><a href="materiel.html">Composants</a></li>
+								<li class="current"><a href="etape1.html">Montage</a></li>
+								<li><a href="code.html">Code</a></li>
 
-                    </ul>
-                </nav>
+							</ul>
+						</nav>
 
-            </div>
-            <section class="wrapper style1">
-                <div class="container">
-                    <div class="row 200%">
-                        <div class="4u 12u(narrower)">
-                            <div id="sidebar">
+				</div>
+<section class="wrapper style1">
+					<div class="container">
+						<div class="row 200%">
+							<div class="4u 12u(narrower)">
+								<div id="sidebar">
 
-                                <!-- Sidebar -->
+									<!-- Sidebar -->
 
-                                    <section>
-                                        <h4>Etapes de montage :</h4>
-                                        <ul>
-                                            <li><a href="etape1.html">Etape 1 : Montage des composants</a> <span class="duree">(30 minutes)</span></li>
-                                            <li><a href="etape2.html">Etape 2 : Programmation</a> <span class="duree">(20 minutes)</span></li>
-                                        </ul>
-                                    </section>
-                            </div>
-                        </div>
-                        <div class="8u  12u(narrower) important(narrower)">
-                            <div id="content">
+										<section>
+                                            <h4>Etapes de montage :</h4>
+											<ul>
+                                                <li><a href="etape1.html">Etape 1 : Montage des composants</a> <span class="duree">(30 minutes)</span></li>
+                                                <li><a href="etape2.html">Etape 2 : Programmation</a> <span class="duree">(20 minutes)</span></li>
+                                            </ul>
+										</section>
+								</div>
+							</div>
+							<div class="8u  12u(narrower) important(narrower)">
+								<div id="content">
 
-                                <!-- Content -->
-                                <article>
-                                    <header>
-                                        <h2>Etape 2 : Programmation</h2>
-                                        <p>Durée de l'étape : 20 minutes</p>
-                                    </header>
-                                    <p>Maintenant que tous les fils sont connectés et le fer à souder est froid, nous arrivons à la programmation. Nous avons déjà établis quelques idées de base au départ. Le programme devrait donc effectuer les tâches suivantes:</p>
-                                    <ul class="list-materiel">
-                                        <li>Lecture du capteur pour déterminer s'il y a des applaudissements</li>
-                                        <li>Récupérer et sauvegarder claps</li>
-                                        <li>Allumer ou éteindre la lumière</li>
-                                    </ul>
+									<!-- Content -->
+                                    <article>
+                                        <header>
+                                            <h2>Etape 1 : Montage des composants</h2>
+                                            <p>Durée de l'étape : 30 minutes</p>
+                                        </header>
+
+                                        <p>Avant de commencer cette étape, vérifiez que vous avez bien tous le <a href="materiel.html">matériel nécessaire</a>.</p>
+
+                                        <p>Lorsque vous avez recueillis toutes les parties, vous pouvez commencer à le construire. En raison du petit nombre de composants, l'encombrement est limité.</p>
+
+                                        <p>Avant de commencer, un peu de théorie et quelques mots sur la façon de construire. L'Arduino doit écouter via le "capteur sonore" connecté systématiquement si un niveau de volume particulièrement élevé (= pic) est présent. Ce pic est généré par vous en tapant des mains. Si ce pic se produit 2 fois dans une période de temps donnée, l'Arduino passe un relais, qui allume alors la lampe de chevet connecté. En raison du relais et le photocoupleur sur la carte de relais, nous réalisons également une isolation galvanique entre le microcontrôleur et la lampe de chevet.</p>
+
+                                        <p>Plus sur la logique du programme suivra dans une section ultérieure de l'article. Maintenant, il est temps pour le câblage. La figure de ci-dessous ainsi que le tableau doivent être explicites.</p>
+
+                                        <table class="branchements">
+                                            <thead>
+                                                <td>Arduino Nano</td>
+                                                <td>Sound Sensor</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="wire-red">5V</td>
+                                                    <td class="wire-red">+5V</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wire-yellow">D3</td>
+                                                    <td class="wire-yellow">OUT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>GND</td>
+                                                    <td>GND</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="branchements">
+                                            <thead>
+                                                <td>Arduino Nano</td>
+                                                <td>Relay Modul</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="wire-red">5V</td>
+                                                    <td class="wire-red">VCC</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wire-green">D4</td>
+                                                    <td class="wire-green">IN2</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>GND</td>
+                                                    <td>GND</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <figure>
+                                            <img src="images/montageClapper.jpg" alt="Schèma de montage du clapper">
+                                            <figcaption>Schèma de montage du clapper</figcaption>
+                                        </figure>
+
+                                        <a href="etape2.html">Étape suivante -></a>
+
+                                    </article>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 
 
-                                    <p>Il y a une petite astuce pour le reste de la séquence, vraiment simple. Si le capteur sonore détecte un bruit qui est plus fort que d'un niveau prédéfini, alors il écrit un 0. Donc, si je crie pendant une seconde, le capteur se déclenche au moins deux fois. Comment pouvons-nous distinguer si quelqu'un a applaudi deux fois (= deux pics simples) ou que c'est l'aspirateur de votre voisin?</p>
-
-                                    <p>Pour répondre à cette question, jetons un oeil à ce qu'un microphone enregistre quand nous frappons. Pour cela, je l'ai fait deux enregistrements avec le Audacity freeware, alors que je frappais deux fois des mains. Une fois plus rapide, et une autre fois plus lentement. Je l'ai fait, parce que dans la pratique, nous frappons pas toujours exactement au même rythme.</p>
-
-                                    <p>Maintenant, les enregistrements peuvent être pris en compte dans Audacity plus en détail. Sur la base du diagramme de niveau, nous pouvons voir combien de temps un "clap" prend et combien de temps passe jusqu'à ce que vous aient applaudi deux fois.</p>
-
-                                    <p>Nous pouvons voir que les applaudissements rapides prennent environ 170 ms et les applaudissements lents prennent 340 ms. Maintenant, ajoutons une certaine marge, de sorte que nous pouvons dire que notre «double-clap" est traitée à moins de 400 ms. Maintenant, nous prenons ce que la longueur de la séquence pour l'organigramme du programme. Donc, nous comptons tous les pics (pics de niveau de volume / voyages) pour 400 ms, puis voir si exactement deux pics ont été trouvés. Si votre voisin passe l'aspirateur ou pas, alors le nombre de pics serait beaucoup plus élevé pendant la séquence de 400 ms capturé. Ainsi, nous pouvons distinguer si quelqu'un frappa (ou frappé / siffla / hurla) deux fois ou si une autre source de bruit est déclenché </p>
-
-                                    <a href="etape1.html"><- Étape précédente</a>
-
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 		</div>
 
 		<!-- Scripts -->
