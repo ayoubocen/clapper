@@ -60,24 +60,98 @@
                                         <h2>Etape 2 : Programmation</h2>
                                         <p>Durée de l'étape : 20 minutes</p>
                                     </header>
-                                    <p>Maintenant que tous les fils sont connectés et le fer à souder est froid, nous arrivons à la programmation. Nous avons déjà établis quelques idées de base au départ. Le programme devrait donc effectuer les tâches suivantes:</p>
+
+                                    <p>Maintenant que les fils sont connectés et que le fer à souder est froid, nous allons nous intéresser à la partie programmation. Nous avons déjà vu le fonctionnement de base du Clapper à <a href="etape1.html">l'étape précédente</a>. Le programme devrait donc effectuer les tâches suivantes :</p>
+
                                     <ul class="list-materiel">
-                                        <li>Lecture du capteur pour déterminer s'il y a des applaudissements</li>
-                                        <li>Récupérer et sauvegarder claps</li>
+                                        <li>Écouter via la capteur afin de déterminer si il y a un clap</li>
+                                        <li>Récupérer et sauvegarder les claps</li>
                                         <li>Allumer ou éteindre la lumière</li>
                                     </ul>
 
+                                    <p>La programmation sur Arduino se réalise sur votre ordinateur via <a href="http://www.arduino.cc/en/main/software" target=_blank>Arduino IDE</a>. Cet IDE permet d'écrire le code puis de télécharger et lancer le programme directement sur l'Arduino connecté à l'ordinateur par USB.</p>
 
-                                    <p>Il y a une petite astuce pour le reste de la séquence, vraiment simple. Si le capteur sonore détecte un bruit qui est plus fort que d'un niveau prédéfini, alors il écrit un 0. Donc, si je crie pendant une seconde, le capteur se déclenche au moins deux fois. Comment pouvons-nous distinguer si quelqu'un a applaudi deux fois (= deux pics simples) ou que c'est l'aspirateur de votre voisin?</p>
+                                    <p>Tout d'abord, nous allons devoir récuperer et envoyer des valeurs aux différents composants (ici, micro et relayBoard) :</p>
 
-                                    <p>Pour répondre à cette question, jetons un oeil à ce qu'un microphone enregistre quand nous frappons. Pour cela, je l'ai fait deux enregistrements avec le Audacity freeware, alors que je frappais deux fois des mains. Une fois plus rapide, et une autre fois plus lentement. Je l'ai fait, parce que dans la pratique, nous frappons pas toujours exactement au même rythme.</p>
+                                    <ul>
+                                        <li>Dans l'initialisation, nous utilisons la méthode pinMode (<a href="https://www.arduino.cc/en/Reference/PinMode" target=_blank>Doc. Arduino</a>) qui permet de configurer les différents branchements (ici pin 3 et 4 pour respectivement le micro et la relayBoard).</li>
+                                        <li>Dans la boucle de traitement, on peut ensuite grâce au digitalRead(soundSensor) (<a href="https://www.arduino.cc/en/Reference/DigitalRead" target=_blank>Doc. Arduino</a>) récupérer si oui ou non, le micro entend un son (la valeur renvoyée sera LOW si il y a un son, HIGH sinon). Le seuil de détection du micro est réglable via la vis de réglage qu'il y a dessus.<br><i>On aurait également pu utiliser analogRead (<a href="https://www.arduino.cc/en/Reference/AnalogRead" target=_blank>Doc. Arduino</a>) qui renvoi une valeur entre 0 et 1023 correspondant au volume capté mais cela aurait nécéssité de déterminer si un son est un pic ou pas.</i></li>
+                                        <li>Le digitalWrite permet d'envoyer une valeur à un pin. Ici, l'envoi au relay d'un LOW allumera la lumière et l'envoi du HIGH l'éteindra.</li>
+                                    </ul>
 
-                                    <p>Maintenant, les enregistrements peuvent être pris en compte dans Audacity plus en détail. Sur la base du diagramme de niveau, nous pouvons voir combien de temps un "clap" prend et combien de temps passe jusqu'à ce que vous aient applaudi deux fois.</p>
 
-                                    <p>Nous pouvons voir que les applaudissements rapides prennent environ 170 ms et les applaudissements lents prennent 340 ms. Maintenant, ajoutons une certaine marge, de sorte que nous pouvons dire que notre «double-clap" est traitée à moins de 400 ms. Maintenant, nous prenons ce que la longueur de la séquence pour l'organigramme du programme. Donc, nous comptons tous les pics (pics de niveau de volume / voyages) pour 400 ms, puis voir si exactement deux pics ont été trouvés. Si votre voisin passe l'aspirateur ou pas, alors le nombre de pics serait beaucoup plus élevé pendant la séquence de 400 ms capturé. Ainsi, nous pouvons distinguer si quelqu'un frappa (ou frappé / siffla / hurla) deux fois ou si une autre source de bruit est déclenché </p>
+                                    <pre class="brush: java">
+                                        int soundSensor = 3;    // soundSensor connecté au pin 3
+                                        int relay = 4;          // relayBoard connecté au pin 4
 
-                                    <a href="etape1.html"><- Étape précédente</a>
+                                        // Initialisation
+                                        void setup() {
+                                            pinMode(soundSensor, INPUT);
+                                            pinMode(relay, OUTPUT);
+                                        }
 
+                                        // Boucle de traitement
+                                        void loop() {
+                                            int sensorState = digitalRead(soundSensor);
+                                            ...
+                                            digitalWrite(relay, HIGH);
+                                            ...
+                                            digitalWrite(relay, LOW);
+                                        }
+                                    </pre>
+
+                                    <p>Le reste du code est relativment simple :</p>
+
+                                    <ul>
+                                        <li>On recupère le premier pic, puis ceux au moins espacés de 50ms du premier (durée d'un claquement de main), afin d'éviter d'avoir 2 pic pour un claquement. (l. 16)</li>
+                                        <li>On compte ensuite le nombre de claquement et si il n'y en a eu que 2, on allume/éteins la lumière.</li>
+                                    </ul>
+
+                                    <pre class="brush: java">
+                                        int claps = 0;                    // Nombre de clap
+                                        long detectionSpanInitial = 0;    // Début de l'écoute
+                                        long detectionSpan = 0;
+                                        boolean lightState = false;
+
+                                        // Boucle de traitement
+                                        void loop() {
+
+                                            int sensorState = digitalRead(soundSensor);
+
+                                            // Si le micro entend un son
+                                            if (sensorState == LOW) {
+                                                if (claps == 0) {
+                                                    detectionSpanInitial = detectionSpan = millis();
+                                                    claps++;
+                                                } else if (claps > 0 && millis()-detectionSpan >= 50) {
+                                                    detectionSpan = millis();
+                                                    claps++;
+                                                }
+                                            }
+
+                                            // Après les 400 millisecondes
+                                            if (millis()-detectionSpanInitial >= 400) {
+                                                // Si il y a eu exactement 2 claps
+                                                if (claps == 2) {
+                                                    // Si la lumière est éteinte, on l'allume et vice-versa
+                                                    if (!lightState) {
+                                                        lightState = true;
+                                                        digitalWrite(relay, HIGH);
+                                                    } else if (lightState) {
+                                                        lightState = false;
+                                                        digitalWrite(relay, LOW);
+                                                    }
+                                                }
+                                                claps = 0;
+                                            }
+                                        }
+                                    </pre>
+
+                                    <p>Vous trouverez tout le code source du programme dans la section <a href="code.html" target=_blank>Code</a>.</p>
+
+                                    <p>Il ne vous reste plus qu'a lancer le code sur votre arduino et le tour est joué.</p>
+
+                                    <p><a href="etape1.html"><- Étape précédente</a></p>
                                 </article>
                             </div>
                         </div>
@@ -87,12 +161,25 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.dropotron.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="assets/js/main.js"></script>
+
+        <!-- Include Syntax Highlighter JS files -->
+        <script type="text/javascript" src="assets/js/shCore.js"></script>
+        <script type="text/javascript" src="assets/js/shBrushJava.js"></script>
+        <!-- Include *at least* the core style and default theme -->
+        <link href="assets/css/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+
+        <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+        </script>
 
 	</body>
 </html>

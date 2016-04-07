@@ -3242,4 +3242,15 @@ img {
     color: #6aa84f;
 }
 
+article ul {
+    list-style-type: disc;
+    padding-left: 40px
+}
 
+
+
+figcaption {
+    text-align: center;
+    margin-bottom: 10px;
+    font-style: italic;
+}

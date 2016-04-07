@@ -43,23 +43,26 @@
                                 <p>Le code source nécessaire à la mise en place du Clapper</p>
                             </header>
                             <pre class="brush: java">
-                                int soundSensor = 3;
-                                int relay = 4;
+                                int soundSensor = 3;    // soundSensor connecté au pin 3
+                                int relay = 4;          // relayBoard connecté au pin 4
                                 int claps = 0;
                                 long detectionSpanInitial = 0;
                                 long detectionSpan = 0;
                                 boolean lightState = false;
 
+                                // Initialisation
                                 void setup() {
                                     pinMode(soundSensor, INPUT);
                                     pinMode(relay, OUTPUT);
                                 }
 
+                                // Boucle de traitement
                                 void loop() {
 
                                     int sensorState = digitalRead(soundSensor);
 
-                                    if (sensorState == 0) {
+                                    // Si le micro entend un son
+                                    if (sensorState == LOW) {
                                         if (claps == 0) {
                                             detectionSpanInitial = detectionSpan = millis();
                                             claps++;
@@ -92,25 +95,25 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.dropotron.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="assets/js/main.js"></script>
 
-			<!-- Include Syntax Highlighter JS files -->
-            <script type="text/javascript" src="assets/js/shCore.js"></script>
-            <script type="text/javascript" src="assets/js/shBrushJava.js"></script>
-            <!-- Include *at least* the core style and default theme -->
-            <link href="assets/css/shCore.css" rel="stylesheet" type="text/css" />
-            <link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+        <!-- Include Syntax Highlighter JS files -->
+        <script type="text/javascript" src="assets/js/shCore.js"></script>
+        <script type="text/javascript" src="assets/js/shBrushJava.js"></script>
+        <!-- Include *at least* the core style and default theme -->
+        <link href="assets/css/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
 
 
-<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
-<script type="text/javascript">
-     SyntaxHighlighter.all()
-</script>
+        <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+        </script>
 
 	</body>
 </html>
