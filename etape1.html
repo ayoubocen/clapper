@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Guide de fabrication d'un Clapper - Étape 2</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+            <div id="header">
+
+                <!-- Logo -->
+                <h1><a href="index.html" id="logo">Guide de fabrication d'un Clapper</a></h1>
+
+                <!-- Nav -->
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="materiel.html">Composants</a></li>
+                        <li class="current"><a href="etape1.html">Montage</a></li>
+                        <li><a href="code.html">Code</a></li>
+
+                    </ul>
+                </nav>
+
+            </div>
+            <section class="wrapper style1">
+                <div class="container">
+                    <div class="row 200%">
+                        <div class="4u 12u(narrower)">
+                            <div id="sidebar">
+
+                                <!-- Sidebar -->
+
+                                    <section>
+                                        <h4>Etapes de montage :</h4>
+                                        <ul>
+                                            <li><a href="etape1.html">Etape 1 : Montage des composants</a> <span class="duree">(30 minutes)</span></li>
+                                            <li><a href="etape2.html">Etape 2 : Programmation</a> <span class="duree">(20 minutes)</span></li>
+                                        </ul>
+                                    </section>
+                            </div>
+                        </div>
+                        <div class="8u  12u(narrower) important(narrower)">
+                            <div id="content">
+
+                                <!-- Content -->
+                                <article>
+                                    <header>
+                                        <h2>Etape 2 : Programmation</h2>
+                                        <p>Durée de l'étape : 20 minutes</p>
+                                    </header>
+                                    <p>Maintenant que tous les fils sont connectés et le fer à souder est froid, nous arrivons à la programmation. Nous avons déjà établis quelques idées de base au départ. Le programme devrait donc effectuer les tâches suivantes:</p>
+                                    <ul class="list-materiel">
+                                        <li>Lecture du capteur pour déterminer s'il y a des applaudissements</li>
+                                        <li>Récupérer et sauvegarder claps</li>
+                                        <li>Allumer ou éteindre la lumière</li>
+                                    </ul>
+
+
+                                    <p>Il y a une petite astuce pour le reste de la séquence, vraiment simple. Si le capteur sonore détecte un bruit qui est plus fort que d'un niveau prédéfini, alors il écrit un 0. Donc, si je crie pendant une seconde, le capteur se déclenche au moins deux fois. Comment pouvons-nous distinguer si quelqu'un a applaudi deux fois (= deux pics simples) ou que c'est l'aspirateur de votre voisin?</p>
+
+                                    <p>Pour répondre à cette question, jetons un oeil à ce qu'un microphone enregistre quand nous frappons. Pour cela, je l'ai fait deux enregistrements avec le Audacity freeware, alors que je frappais deux fois des mains. Une fois plus rapide, et une autre fois plus lentement. Je l'ai fait, parce que dans la pratique, nous frappons pas toujours exactement au même rythme.</p>
+
+                                    <p>Maintenant, les enregistrements peuvent être pris en compte dans Audacity plus en détail. Sur la base du diagramme de niveau, nous pouvons voir combien de temps un "clap" prend et combien de temps passe jusqu'à ce que vous aient applaudi deux fois.</p>
+
+                                    <p>Nous pouvons voir que les applaudissements rapides prennent environ 170 ms et les applaudissements lents prennent 340 ms. Maintenant, ajoutons une certaine marge, de sorte que nous pouvons dire que notre «double-clap" est traitée à moins de 400 ms. Maintenant, nous prenons ce que la longueur de la séquence pour l'organigramme du programme. Donc, nous comptons tous les pics (pics de niveau de volume / voyages) pour 400 ms, puis voir si exactement deux pics ont été trouvés. Si votre voisin passe l'aspirateur ou pas, alors le nombre de pics serait beaucoup plus élevé pendant la séquence de 400 ms capturé. Ainsi, nous pouvons distinguer si quelqu'un frappa (ou frappé / siffla / hurla) deux fois ou si une autre source de bruit est déclenché </p>
+
+                                    <a href="etape1.html"><- Étape précédente</a>
+
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Guide de fabrication d'un Clapper</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Logo -->
+						<h1><a href="index.html" id="logo">Guide de fabrication d'un Clapper</a></h1>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Accueil</a></li>
+								<li><a href="materiel.html">Composants</a></li>
+								<li><a href="etape1.html">Montage</a></li>
+								<li class="current"><a href="code.html">Code</a></li>
+
+							</ul>
+						</nav>
+
+				</div>
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+                           <header>
+                                <h2>Code source</h2>
+                                <p>Le code source nécessaire à la mise en place du Clapper</p>
+                            </header>
+                            <pre class="brush: java">
+                                int soundSensor = 3;
+                                int relay = 4;
+                                int claps = 0;
+                                long detectionSpanInitial = 0;
+                                long detectionSpan = 0;
+                                boolean lightState = false;
+
+                                void setup() {
+                                    pinMode(soundSensor, INPUT);
+                                    pinMode(relay, OUTPUT);
+                                }
+
+                                void loop() {
+
+                                    int sensorState = digitalRead(soundSensor);
+
+                                    if (sensorState == 0) {
+                                        if (claps == 0) {
+                                            detectionSpanInitial = detectionSpan = millis();
+                                            claps++;
+                                        } else if (claps > 0 && millis()-detectionSpan >= 50) {
+                                            detectionSpan = millis();
+                                            claps++;
+                                        }
+                                    }
+
+                                    if (millis()-detectionSpanInitial >= 400) {
+                                        if (claps == 2) {
+                                            if (!lightState) {
+                                                lightState = true;
+                                                digitalWrite(relay, HIGH);
+                                            } else if (lightState) {
+                                                lightState = false;
+                                                digitalWrite(relay, LOW);
+                                            }
+                                        }
+                                        claps = 0;
+                                    }
+                                }
+
+                                </pre>
+                        </div>
+                    </div>
+            </section>
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+			<!-- Include Syntax Highlighter JS files -->
+            <script type="text/javascript" src="assets/js/shCore.js"></script>
+            <script type="text/javascript" src="assets/js/shBrushJava.js"></script>
+            <!-- Include *at least* the core style and default theme -->
+            <link href="assets/css/shCore.css" rel="stylesheet" type="text/css" />
+            <link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+
+<!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+
+	</body>
+</html>
